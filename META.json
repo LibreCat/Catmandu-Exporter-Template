@@ -1,7 +1,7 @@
 {
-   "abstract" : "Blah blah blah",
+   "abstract" : "a TT2 Template exporter",
    "author" : [
-      "Vitali Peil <vitali.peil@uni-bielefeld.de>"
+      "Nicolas Steenlant <nicolas.steenlant@ugent.be>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Dist::Milla version v1.0.4, Dist::Zilla version 5.006, CPAN::Meta::Converter version 2.131560",
@@ -36,7 +36,10 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008005"
+            "Catmandu" : "> 0.8006",
+            "Moo" : "> 1.004",
+            "Template" : "2.22",
+            "perl" : "v5.10.1"
          }
       },
       "test" : {
@@ -46,6 +49,9 @@
       }
    },
    "release_status" : "stable",
-   "version" : "0.01"
+   "version" : "0.01",
+   "x_contributors" : [
+      "vpeil <vitali.peil@uni-bielefeld.de>"
+   ]
 }
 
