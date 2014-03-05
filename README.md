@@ -46,7 +46,7 @@ Commit all changes and execute the template\_after if given.
 
 Nicolas Steenlant <nicolas.steenlant@ugent.be>
 
-# Contributor
+# CONTRIBUTOR
 
 Vitali Peil <vitali.peil@uni-bielefeld.de>
 
