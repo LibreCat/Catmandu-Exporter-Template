@@ -45,6 +45,9 @@ Commit all changes and execute the template\_after if given.
 # AUTHOR
 
 Nicolas Steenlant <nicolas.steenlant@ugent.be>
+
+# Contributor
+
 Vitali Peil <vitali.peil@uni-bielefeld.de>
 
 # LICENSE

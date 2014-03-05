@@ -1,4 +1,4 @@
 Revision history for Catmandu-Exporter-Template
 
 {{$NEXT}}
-        - Initial release
+        - Initial release, split off from Catmandu core module
