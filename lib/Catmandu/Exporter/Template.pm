@@ -62,7 +62,7 @@ Catmandu::Exporter::Template - a TT2 Template exporter
 
 =head2 Status
 
-    [![Build Status](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template.png)](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template)
+[![Build Status](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template.png)](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template)
 
 =head1 SYNOPSIS
 
