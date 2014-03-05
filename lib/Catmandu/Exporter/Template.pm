@@ -84,7 +84,7 @@ Catmandu::Exporter::Template - a TT2 Template exporter
 
 =head1 METHODS
 
-=head2 new(\%opts)
+=head2 new(%opts)
 
 =over
 
