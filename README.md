@@ -2,6 +2,10 @@
 
 Catmandu::Exporter::Template - a TT2 Template exporter
 
+## Status
+
+    [![Build Status](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template.png)](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template)
+
 # SYNOPSIS
 
     use Catmandu::Exporter::Template;
