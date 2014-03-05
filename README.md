@@ -2,10 +2,6 @@
 
 Catmandu::Exporter::Template - a TT2 Template exporter
 
-## Status
-
-\[!\[Build Status\](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template.png)\](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template)
-
 # SYNOPSIS
 
     use Catmandu::Exporter::Template;
@@ -30,7 +26,13 @@ Catmandu::Exporter::Template - a TT2 Template exporter
 
 # METHODS
 
-## new(xml => 0|1 , template\_before => PATH, template => PATH , template\_after => PATH)
+## new(%opts)
+
+- template: Required. Must contain path to the template.
+- xml: Optional. Value: 0 or 1. Prepends xml header to the template.
+- template\_before: Optional. Prepend template.
+- template\_after: Optional. Append template.
+- fix: Optional. Apply Catmandu fixes while exporting.
 
 Catmandu::Exporter::Template can be used to export data objects using
 [Template Toolkit](https://metacpan.org/pod/Template::Manual). The only required argument is 'template'
@@ -38,13 +40,17 @@ which points to a file to render for each exported object. Set the
 'template\_before' and 'template\_before' to add output at the start and end of
 the export.  Optionally provide an 'xml' indicator to include a XML header. 
 
-## add
+## add($hashref)
 
-Add data to the exporter.
+Add data $hashref to the exporter.
 
 ## commit
 
 Commit all changes and execute the template\_after if given.
+
+## count
+
+Gives the number of records added to the exporter.
 
 # AUTHOR
 
