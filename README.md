@@ -1,8 +1,12 @@
 # NAME
 
-Catmandu::Exporter::Template - a TT2 Template exporter
+Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
+
+
 
 # SYNOPSIS
+
+If you are new to Catmandu see [Catmandu::Tutorial](https://metacpan.org/pod/Catmandu::Tutorial).
 
     use Catmandu::Exporter::Template;
 
@@ -54,11 +58,11 @@ Gives the number of records added to the exporter.
 
 # AUTHOR
 
-Nicolas Steenlant <nicolas.steenlant@ugent.be>
+Nicolas Steenlant, `<nicolas.steenlant at ugent.be>`
 
 # CONTRIBUTOR
 
-Vitali Peil <vitali.peil@uni-bielefeld.de>
+Vitali Peil, `<vitali.peil at uni-bielefeld.de>`
 
 # LICENSE
 
