@@ -38,8 +38,11 @@ sub _tt {
 
 sub _process {
     my ($self, $tmpl, $data) = @_;
-    $self->_tt->process($tmpl, $data || {}, $self->fh)
-        || Catmandu::Error->throw(Template->error || "Template error");
+    unless($self->_tt->process($tmpl, $data || {}, $self->fh)) {
+        my $msg = "Template error";
+        $msg .= ": ".$self->_tt->error->info if $self->_tt->error;
+        Catmandu::Error->throw($msg);
+    }
 }
 
 sub add {
