@@ -28,6 +28,7 @@ sub _tt {
     state $tt = Template->new({
         ENCODING     => 'utf8',
         ABSOLUTE     => 1,
+        RELATIVE     => 1,
         ANYCASE      => 0,
         INCLUDE_PATH => Catmandu->roots,
         VARIABLES    => { _roots  => Catmandu->roots,
