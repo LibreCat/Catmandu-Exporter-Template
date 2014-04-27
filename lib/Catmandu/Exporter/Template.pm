@@ -63,8 +63,6 @@ Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 
 =head1 SYNOPSIS
 
-If you are new to Catmandu see L<Catmandu::Tutorial>.
-
     use Catmandu::Exporter::Template;
 
     my $exporter = Catmandu::Exporter::Template->new(
@@ -85,9 +83,24 @@ If you are new to Catmandu see L<Catmandu::Tutorial>.
 
     printf "exported %d objects\n" , $exporter->count;
 
+=head1 DESCRIPTION
+
+This L<Catmandu::Exporter> can be used to export records using
+L<Template Toolkit|Template::Manual>. If you are new to Catmandu 
+see L<Catmandu::Tutorial>.
+
 =head1 METHODS
 
+Catmandu::Exporter::Template derives from L<Catmandu::Exporter> with all of its
+methods (C<add>, C<add_many>, C<count>, and C<log>). The following methods are
+supported in addition:
+
 =head2 new(%opts)
+
+The only required argument is 'template' which points to a file to render for
+each exported object. Set the 'template_before' and 'template_before' to add
+output at the start and end of the export.  Optionally provide an 'xml'
+indicator to include a XML header. 
 
 =over
 
@@ -113,12 +126,6 @@ fix: Optional. Apply Catmandu fixes while exporting.
 
 =back
 
-Catmandu::Exporter::Template can be used to export data objects using
-L<Template Toolkit|Template::Manual>. The only required argument is 'template'
-which points to a file to render for each exported object. Set the
-'template_before' and 'template_before' to add output at the start and end of
-the export.  Optionally provide an 'xml' indicator to include a XML header. 
-
 =head2 add($hashref)
 
 Add data $hashref to the exporter.
@@ -126,10 +133,6 @@ Add data $hashref to the exporter.
 =head2 commit
 
 Commit all changes and execute the template_after if given.
-
-=head2 count
-
-Gives the number of records added to the exporter.
 
 =head1 AUTHOR
 
