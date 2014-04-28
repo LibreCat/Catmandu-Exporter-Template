@@ -18,46 +18,59 @@ my $ADD_TT_EXT = sub {
     is_string($tmpl) && $tmpl !~ /\.tt$/ ? "$tmpl.tt" : $tmpl;
 };
 
-has xml             => (is => 'ro');
-has template_before => (is => 'ro', coerce => $ADD_TT_EXT);
-has template        => (is => 'ro', coerce => $ADD_TT_EXT, required => 1);
-has template_after  => (is => 'ro', coerce => $ADD_TT_EXT);
+has xml             => ( is => 'ro' );
+has template_before => ( is => 'ro', coerce => $ADD_TT_EXT );
+has template        => ( is => 'ro', coerce => $ADD_TT_EXT, required => 1 );
+has template_after => ( is => 'ro', coerce => $ADD_TT_EXT );
+has start_tag      => ( is => 'ro' );
+has end_tag        => ( is => 'ro' );
+has tag_style      => ( is => 'ro' );
+has interpolate    => ( is => 'ro' );
+has eval_perl      => ( is => 'ro' );
 
 sub _tt {
+    my $self = shift;
     local $Template::Stash::PRIVATE = 0;
-    state $tt = Template->new({
+    my %opts = (
         ENCODING     => 'utf8',
         ABSOLUTE     => 1,
         RELATIVE     => 1,
         ANYCASE      => 0,
         INCLUDE_PATH => Catmandu->roots,
-        VARIABLES    => { _roots  => Catmandu->roots,
-                          _root   => Catmandu->root,
-                          _config => Catmandu->config, },
-    });
+        VARIABLES    => {
+            _roots  => Catmandu->roots,
+            _root   => Catmandu->root,
+            _config => Catmandu->config,
+        },
+    );
+
+    my @fields = qw/tag_style start_tag end_tag interpolate eval_perl/;
+    map { $opts{ uc $_ } = $self->$_ if $self->$_; } @fields;
+
+    state $tt = Template->new(%opts);
 }
 
 sub _process {
-    my ($self, $tmpl, $data) = @_;
-    unless($self->_tt->process($tmpl, $data || {}, $self->fh)) {
+    my ( $self, $tmpl, $data ) = @_;
+    unless ( $self->_tt->process( $tmpl, $data || {}, $self->fh ) ) {
         my $msg = "Template error";
-        $msg .= ": ".$self->_tt->error->info if $self->_tt->error;
+        $msg .= ": " . $self->_tt->error->info if $self->_tt->error;
         Catmandu::Error->throw($msg);
     }
 }
 
 sub add {
-    my ($self, $data) = @_;
-    if ($self->count == 0) {
+    my ( $self, $data ) = @_;
+    if ( $self->count == 0 ) {
         $self->fh->print($XML_DECLARATION) if $self->xml;
-        $self->_process($self->template_before) if $self->template_before;
+        $self->_process( $self->template_before ) if $self->template_before;
     }
-    $self->_process($self->template, $data);
+    $self->_process( $self->template, $data );
 }
 
 sub commit {
     my ($self) = @_;
-    $self->_process($self->template_after) if $self->template_after;
+    $self->_process( $self->template_after ) if $self->template_after;
 }
 
 =head1 NAME
@@ -70,12 +83,12 @@ Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
     use Catmandu::Exporter::Template;
 
     my $exporter = Catmandu::Exporter::Template->new(
-				fix => 'myfix.txt'
-				xml => 1,
-				template_before => '<path>/header.xml' ,
-				template => '<path>/record.xml' ,
-				template_after => '<path>/footer.xml' ,
-		   );
+                fix => 'myfix.txt'
+                xml => 1,
+                template_before => '<path>/header.xml' ,
+                template => '<path>/record.xml' ,
+                template_after => '<path>/footer.xml' ,
+           );
 
     $exporter->add_many($arrayref);
     $exporter->add_many($iterator);
@@ -128,11 +141,27 @@ template_after: Optional. Append template.
 
 fix: Optional. Apply Catmandu fixes while exporting.
 
+=item *
+
+start_tag
+
+=item *
+
+end_tag
+
+=item *
+
+tag_style
+
+=item *
+
+interpolate
+
+=item *
+
+eval_perl
+
 =back
-
-=head2 add($hashref)
-
-Add data $hashref to the exporter.
 
 =head2 commit
 
@@ -145,6 +174,8 @@ Nicolas Steenlant, C<< <nicolas.steenlant at ugent.be> >>
 =head1 CONTRIBUTOR
 
 Vitali Peil, C<< <vitali.peil at uni-bielefeld.de> >>
+
+Jakob Voss, C<< <jakob.voss at gbv.de> >>
 
 =head1 LICENSE
 
