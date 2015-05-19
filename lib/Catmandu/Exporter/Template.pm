@@ -15,7 +15,7 @@ my $XML_DECLARATION = qq(<?xml version="1.0" encoding="UTF-8"?>\n);
 
 my $ADD_TT_EXT = sub {
     my $tmpl = $_[0];
-    is_string($tmpl) && $tmpl !~ /\.tt$/ ? "$tmpl.tt" : $tmpl;
+    is_string($tmpl) && $tmpl !~ /\.\w{2,4}$/ ? "$tmpl.tt" : $tmpl;
 };
 
 has xml             => ( is => 'ro' );
@@ -103,7 +103,7 @@ Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 =head1 DESCRIPTION
 
 This L<Catmandu::Exporter> can be used to export records using
-L<Template Toolkit|Template::Manual>. If you are new to Catmandu 
+L<Template Toolkit|Template::Manual>. If you are new to Catmandu
 see L<Catmandu::Tutorial>.
 
 =head1 METHODS
@@ -117,7 +117,7 @@ supported in addition:
 The only required argument is 'template' which points to a file to render for
 each exported object. Set the 'template_before' and 'template_before' to add
 output at the start and end of the export.  Optionally provide an 'xml'
-indicator to include a XML header. 
+indicator to include a XML header.
 
 =over
 
