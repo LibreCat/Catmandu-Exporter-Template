@@ -2,8 +2,6 @@
 
 Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 
-
-
 # SYNOPSIS
 
     use Catmandu::Exporter::Template;
@@ -29,7 +27,7 @@ Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 # DESCRIPTION
 
 This [Catmandu::Exporter](https://metacpan.org/pod/Catmandu::Exporter) can be used to export records using
-[Template Toolkit](https://metacpan.org/pod/Template::Manual). If you are new to Catmandu 
+[Template Toolkit](https://metacpan.org/pod/Template::Manual). If you are new to Catmandu
 see [Catmandu::Tutorial](https://metacpan.org/pod/Catmandu::Tutorial).
 
 # METHODS
@@ -43,7 +41,7 @@ supported in addition:
 The only required argument is 'template' which points to a file to render for
 each exported object. Set the 'template\_before' and 'template\_before' to add
 output at the start and end of the export.  Optionally provide an 'xml'
-indicator to include a XML header. 
+indicator to include a XML header.
 
 - template: Required. Must contain path to the template.
 - xml: Optional. Value: 0 or 1. Prepends xml header to the template.
