@@ -77,17 +77,15 @@ sub commit {
 
 Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 
-=head1 STATUS
+=begin markdown
 
-=begin HTML
+# STATUS
 
-<p>
-<a href="https://travis-ci.org/LibreCat/Catmandu-Exporter-Template"><img src="https://travis-ci.org/LibreCat/Catmandu-Exporter-Template.svg?branch=master" alt="build status" /></a>
-<a href="https://coveralls.io/r/LibreCat/Catmandu-Exporter-Template/"><img src="https://coveralls.io/repos/LibreCat/Catmandu-Exporter-Template/badge.png?branch=master" alt="coverage status" /></a>
-<a href="http://cpants.cpanauthors.org/dist/Catmandu-ArXiv"><img src="http://cpants.cpanauthors.org/dist/Catmandu-Exporter-Template.png" alt="kwalitee score" /></a>
-</p>
+[![Build Status](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template.svg?branch=master)](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template)
+[![Coverage](https://coveralls.io/repos/LibreCat/Catmandu-Exporter-Template/badge.png?branch=master)](https://coveralls.io/r/LibreCat/Catmandu-Exporter-Template)
+[![CPANTS kwalitee](http://cpants.cpanauthors.org/dist/Catmandu-Exporter-Template.png)](http://cpants.cpanauthors.org/dist/Catmandu-ArXiv)
 
-=end HTML
+=end markdown
 
 =head1 SYNOPSIS
 

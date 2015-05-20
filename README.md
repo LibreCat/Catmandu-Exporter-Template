@@ -4,6 +4,10 @@ Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 
 # STATUS
 
+[![Build Status](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template.svg?branch=master)](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template)
+[![Coverage](https://coveralls.io/repos/LibreCat/Catmandu-Exporter-Template/badge.png?branch=master)](https://coveralls.io/r/LibreCat/Catmandu-Exporter-Template)
+[![CPANTS kwalitee](http://cpants.cpanauthors.org/dist/Catmandu-Exporter-Template.png)](http://cpants.cpanauthors.org/dist/Catmandu-ArXiv)
+
 # SYNOPSIS
 
     use Catmandu::Exporter::Template;
