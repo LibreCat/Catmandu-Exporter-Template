@@ -2,6 +2,8 @@
 
 Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 
+# STATUS
+
 # SYNOPSIS
 
     use Catmandu::Exporter::Template;
