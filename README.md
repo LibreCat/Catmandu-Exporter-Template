@@ -10,7 +10,7 @@ Catmandu::Template - Catmandu modules for working with templates
 
 # MODULES
 
-- [Catmandu::Exmporter::Template](https://metacpan.org/pod/Catmandu::Exmporter::Template)
+- [Catmandu::Exporter::Template](https://metacpan.org/pod/Catmandu::Exporter::Template)
 - [Catmandu::Fix::template](https://metacpan.org/pod/Catmandu::Fix::template)
 
 # AUTHOR
