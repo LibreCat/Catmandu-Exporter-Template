@@ -1,6 +1,10 @@
-Revision history for Catmandu-Exporter-Template
+Revision history for Catmandu-Template
 
 {{$NEXT}}
+
+0.07  2015-05-28 14:29:36 CEST
+	- template as Catmandu::Fix
+	- renaming of distribution (Catmandu-Exporter-Template -> Catmandu-Template)
 
 0.06  2015-05-19 20:06:32 CEST
 	- support other file extension than tt
