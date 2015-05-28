@@ -49,8 +49,7 @@ Catmandu::Fix::template - add a value to the record based on a template
 
 =head1 SEE ALSO
 
-L<Catmandu::Fix>,
-L<Template>
+L<Catmandu::Fix>, L<Template>
 
 =cut
 

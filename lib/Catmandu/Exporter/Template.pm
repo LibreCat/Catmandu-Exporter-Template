@@ -77,16 +77,6 @@ sub commit {
 
 Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 
-=begin markdown
-
-# STATUS
-
-[![Build Status](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template.svg?branch=master)](https://travis-ci.org/LibreCat/Catmandu-Exporter-Template)
-[![Coverage](https://coveralls.io/repos/LibreCat/Catmandu-Exporter-Template/badge.png?branch=master)](https://coveralls.io/r/LibreCat/Catmandu-Exporter-Template)
-[![CPANTS kwalitee](http://cpants.cpanauthors.org/dist/Catmandu-Exporter-Template.png)](http://cpants.cpanauthors.org/dist/Catmandu-ArXiv)
-
-=end markdown
-
 =head1 SYNOPSIS
 
     use Catmandu::Exporter::Template;
@@ -175,21 +165,6 @@ eval_perl
 =head2 commit
 
 Commit all changes and execute the template_after if given.
-
-=head1 AUTHOR
-
-Nicolas Steenlant, C<< <nicolas.steenlant at ugent.be> >>
-
-=head1 CONTRIBUTOR
-
-Vitali Peil, C<< <vitali.peil at uni-bielefeld.de> >>
-
-Jakob Voss, C<< <jakob.voss at gbv.de> >>
-
-=head1 LICENSE
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
