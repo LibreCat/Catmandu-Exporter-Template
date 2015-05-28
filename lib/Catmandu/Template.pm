@@ -24,7 +24,7 @@ Catmandu::Template - Catmandu modules for working with templates
 
 =over
 
-=item * L<Catmandu::Exmporter::Template>
+=item * L<Catmandu::Exporter::Template>
 
 =item * L<Catmandu::Fix::template>
 
