@@ -5,6 +5,6 @@ on test => sub {
     requires 'Test::Exception', '0.32';
 };
 
-requires 'Catmandu', '>=0.8014';
+requires 'Catmandu', '>=0.9301';
 requires 'Template', '>=2.22';
 requires 'Moo', '>1.004';
