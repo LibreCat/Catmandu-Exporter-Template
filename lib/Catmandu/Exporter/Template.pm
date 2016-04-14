@@ -79,6 +79,19 @@ Catmandu::Exporter::Template - a TT2 Template exporter in Catmandu style
 
 =head1 SYNOPSIS
 
+    # From the command line
+    echo '{"colors":["red","green","blue"]}' | 
+        catmandu convert JSON to Template --template `pwd`/xml.tt
+
+    where xml.tt like:
+
+    <colors>
+    [% FOREACH c IN colors %]
+       <color>[% c %]</color>
+    [% END %]
+    </colors>
+
+    # From perl
     use Catmandu::Exporter::Template;
 
     my $exporter = Catmandu::Exporter::Template->new(
