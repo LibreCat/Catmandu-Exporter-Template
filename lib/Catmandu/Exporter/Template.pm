@@ -1,11 +1,11 @@
 package Catmandu::Exporter::Template;
 
-use namespace::clean;
 use Catmandu::Sane;
 use Catmandu::Util qw(is_string);
 use Catmandu;
 use Template;
 use Moo;
+use namespace::clean;
 
 our $VERSION = '0.08';
 
@@ -27,27 +27,34 @@ has end_tag        => ( is => 'ro' );
 has tag_style      => ( is => 'ro' );
 has interpolate    => ( is => 'ro' );
 has eval_perl      => ( is => 'ro' );
+has _tt_opts => ( is => 'lazy' );
 
-sub _tt {
-    my $self = shift;
-    local $Template::Stash::PRIVATE = 0;
-    my %opts = (
+sub BUILD {
+    my ($self, $opts) = @_;
+    my $tt_opts = $self->_tt_opts;
+    for my $key (keys %$opts) {
+        $tt_opts->{uc $key} = $opts->{$key};
+    }
+}
+
+sub _build__tt_opts {
+    +{
         ENCODING     => 'utf8',
         ABSOLUTE     => 1,
         RELATIVE     => 1,
         ANYCASE      => 0,
-        INCLUDE_PATH => Catmandu->roots,
-        VARIABLES    => {
-            _roots  => Catmandu->roots,
-            _root   => Catmandu->root,
-            _config => Catmandu->config,
-        },
-    );
+        INCLUDE_PATH => Catmandu->root,
+    };
+}
 
-    my @fields = qw/tag_style start_tag end_tag interpolate eval_perl/;
-    map { $opts{ uc $_ } = $self->$_ if $self->$_; } @fields;
-
-    state $tt = Template->new(%opts);
+sub _tt {
+    my ( $self ) = @_;
+    my $opts = $self->_tt_opts;
+    my $vars = $opts->{VARIABLES} ||= {};
+    $vars->{_root} = Catmandu->root;
+    $vars->{_config} = Catmandu->config;
+    local $Template::Stash::PRIVATE = 0;
+    state $tt = Template->new(%$opts);
 }
 
 sub _process {
