@@ -8,7 +8,7 @@ use Storable qw(freeze);
 use Moo;
 use namespace::clean;
 
-our $VERSION = '0.08';
+our $VERSION = '0.10';
 
 with 'Catmandu::Exporter';
 
