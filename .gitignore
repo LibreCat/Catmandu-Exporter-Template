@@ -1,3 +1,5 @@
+.tidyall.d
+*.swp
 /Catmandu-Template-*
 /.build
 /_build*

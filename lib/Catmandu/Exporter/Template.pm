@@ -1,15 +1,18 @@
 package Catmandu::Exporter::Template;
 
-use namespace::clean;
 use Catmandu::Sane;
 use Catmandu::Util qw(is_string);
 use Catmandu;
 use Template;
+use Storable qw(freeze);
 use Moo;
+use namespace::clean;
 
 our $VERSION = '0.08';
 
 with 'Catmandu::Exporter';
+
+my $TT_INSTANCES = {};
 
 my $XML_DECLARATION = qq(<?xml version="1.0" encoding="UTF-8"?>\n);
 
@@ -18,41 +21,68 @@ my $ADD_TT_EXT = sub {
     is_string($tmpl) && $tmpl !~ /\.\w{2,4}$/ ? "$tmpl.tt" : $tmpl;
 };
 
-has xml             => ( is => 'ro' );
-has template_before => ( is => 'ro', coerce => $ADD_TT_EXT );
-has template        => ( is => 'ro', coerce => $ADD_TT_EXT, required => 1 );
-has template_after => ( is => 'ro', coerce => $ADD_TT_EXT );
-has start_tag      => ( is => 'ro' );
-has end_tag        => ( is => 'ro' );
-has tag_style      => ( is => 'ro' );
-has interpolate    => ( is => 'ro' );
-has eval_perl      => ( is => 'ro' );
+my $OWN_OPTS = {
+    map {($_ => 1)}
+        qw(
+        log_category
+        autocommit
+        count
+        file
+        fh
+        xml
+        template
+        template_before
+        template_after
+        )
+};
 
-sub _tt {
-    my $self = shift;
-    local $Template::Stash::PRIVATE = 0;
-    my %opts = (
+has xml             => (is => 'ro');
+has template_before => (is => 'ro', coerce => $ADD_TT_EXT);
+has template        => (is => 'ro', coerce => $ADD_TT_EXT, required => 1);
+has template_after => (is => 'ro',   coerce   => $ADD_TT_EXT);
+has _tt_opts       => (is => 'lazy', init_arg => undef);
+has _tt            => (is => 'lazy', init_arg => undef);
+
+sub BUILD {
+    my ($self, $opts) = @_;
+    my $tt_opts = $self->_tt_opts;
+    for my $key (keys %$opts) {
+        $tt_opts->{uc $key} = $opts->{$key} unless $OWN_OPTS->{$key};
+    }
+}
+
+sub _build__tt_opts {
+    +{
         ENCODING     => 'utf8',
         ABSOLUTE     => 1,
         RELATIVE     => 1,
         ANYCASE      => 0,
-        INCLUDE_PATH => Catmandu->roots,
-        VARIABLES    => {
-            _roots  => Catmandu->roots,
-            _root   => Catmandu->root,
-            _config => Catmandu->config,
-        },
-    );
+        INCLUDE_PATH => Catmandu->root,
+    };
+}
 
-    my @fields = qw/tag_style start_tag end_tag interpolate eval_perl/;
-    map { $opts{ uc $_ } = $self->$_ if $self->$_; } @fields;
+sub _build__tt {
+    my ($self) = @_;
+    my $opts = $self->_tt_opts;
 
-    state $tt = Template->new(%opts);
+    my $instance_key = do {
+        local $Storable::canonical = 1;
+        freeze($opts);
+    };
+    if (my $instance = $TT_INSTANCES->{$instance_key}) {
+        return $instance;
+    }
+
+    my $vars = $opts->{VARIABLES} ||= {};
+    $vars->{_root}   = Catmandu->root;
+    $vars->{_config} = Catmandu->config;
+    local $Template::Stash::PRIVATE = 0;
+    $TT_INSTANCES->{$instance_key} = Template->new(%$opts);
 }
 
 sub _process {
-    my ( $self, $tmpl, $data ) = @_;
-    unless ( $self->_tt->process( $tmpl, $data || {}, $self->fh ) ) {
+    my ($self, $tmpl, $data) = @_;
+    unless ($self->_tt->process($tmpl, $data || {}, $self->fh)) {
         my $msg = "Template error";
         $msg .= ": " . $self->_tt->error->info if $self->_tt->error;
         Catmandu::Error->throw($msg);
@@ -60,17 +90,17 @@ sub _process {
 }
 
 sub add {
-    my ( $self, $data ) = @_;
-    if ( $self->count == 0 ) {
+    my ($self, $data) = @_;
+    if ($self->count == 0) {
         $self->fh->print($XML_DECLARATION) if $self->xml;
-        $self->_process( $self->template_before ) if $self->template_before;
+        $self->_process($self->template_before) if $self->template_before;
     }
-    $self->_process( $self->template, $data );
+    $self->_process($self->template, $data);
 }
 
 sub commit {
     my ($self) = @_;
-    $self->_process( $self->template_after ) if $self->template_after;
+    $self->_process($self->template_after) if $self->template_after;
 }
 
 =head1 NAME
