@@ -18,16 +18,16 @@ my $ADD_TT_EXT = sub {
     is_string($tmpl) && $tmpl !~ /\.\w{2,4}$/ ? "$tmpl.tt" : $tmpl;
 };
 
-has xml             => ( is => 'ro' );
-has template_before => ( is => 'ro', coerce => $ADD_TT_EXT );
-has template        => ( is => 'ro', coerce => $ADD_TT_EXT, required => 1 );
-has template_after => ( is => 'ro', coerce => $ADD_TT_EXT );
-has start_tag      => ( is => 'ro' );
-has end_tag        => ( is => 'ro' );
-has tag_style      => ( is => 'ro' );
-has interpolate    => ( is => 'ro' );
-has eval_perl      => ( is => 'ro' );
-has _tt_opts => ( is => 'lazy' );
+has xml             => (is => 'ro');
+has template_before => (is => 'ro', coerce => $ADD_TT_EXT);
+has template        => (is => 'ro', coerce => $ADD_TT_EXT, required => 1);
+has template_after => (is => 'ro', coerce => $ADD_TT_EXT);
+has start_tag      => (is => 'ro');
+has end_tag        => (is => 'ro');
+has tag_style      => (is => 'ro');
+has interpolate    => (is => 'ro');
+has eval_perl      => (is => 'ro');
+has _tt_opts       => (is => 'lazy');
 
 sub BUILD {
     my ($self, $opts) = @_;
@@ -48,18 +48,18 @@ sub _build__tt_opts {
 }
 
 sub _tt {
-    my ( $self ) = @_;
+    my ($self) = @_;
     my $opts = $self->_tt_opts;
     my $vars = $opts->{VARIABLES} ||= {};
-    $vars->{_root} = Catmandu->root;
+    $vars->{_root}   = Catmandu->root;
     $vars->{_config} = Catmandu->config;
     local $Template::Stash::PRIVATE = 0;
     state $tt = Template->new(%$opts);
 }
 
 sub _process {
-    my ( $self, $tmpl, $data ) = @_;
-    unless ( $self->_tt->process( $tmpl, $data || {}, $self->fh ) ) {
+    my ($self, $tmpl, $data) = @_;
+    unless ($self->_tt->process($tmpl, $data || {}, $self->fh)) {
         my $msg = "Template error";
         $msg .= ": " . $self->_tt->error->info if $self->_tt->error;
         Catmandu::Error->throw($msg);
@@ -67,17 +67,17 @@ sub _process {
 }
 
 sub add {
-    my ( $self, $data ) = @_;
-    if ( $self->count == 0 ) {
+    my ($self, $data) = @_;
+    if ($self->count == 0) {
         $self->fh->print($XML_DECLARATION) if $self->xml;
-        $self->_process( $self->template_before ) if $self->template_before;
+        $self->_process($self->template_before) if $self->template_before;
     }
-    $self->_process( $self->template, $data );
+    $self->_process($self->template, $data);
 }
 
 sub commit {
     my ($self) = @_;
-    $self->_process( $self->template_after ) if $self->template_after;
+    $self->_process($self->template_after) if $self->template_after;
 }
 
 =head1 NAME

@@ -18,10 +18,7 @@ my $exporter = Catmandu::Exporter::Template->new(
     start_tag => "<%",
     end_tag   => "!>"
 );
-my $data = {
-    author => "brian d foy",
-    title  => "Mastering Perl",
-};
+my $data = {author => "brian d foy", title => "Mastering Perl",};
 
 $exporter->add($data);
 
@@ -30,7 +27,7 @@ Author: brian d foy
 Title: "Mastering Perl"
 EOF
 
-is( $file, $result, "Exported Format" );
+is($file, $result, "Exported Format");
 
 my $template2 = <<EOF;
 Author: <? author ?>
@@ -44,6 +41,6 @@ my $exporter2 = Catmandu::Exporter::Template->new(
 );
 $exporter2->add($data);
 
-is( $file, $result, "Tag style ok" );
+is($file, $result, "Tag style ok");
 
 done_testing;
