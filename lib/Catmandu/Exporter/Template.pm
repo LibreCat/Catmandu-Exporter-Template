@@ -4,12 +4,15 @@ use Catmandu::Sane;
 use Catmandu::Util qw(is_string);
 use Catmandu;
 use Template;
+use Storable qw(freeze);
 use Moo;
 use namespace::clean;
 
 our $VERSION = '0.08';
 
 with 'Catmandu::Exporter';
+
+my $TT_INSTANCES = {};
 
 my $XML_DECLARATION = qq(<?xml version="1.0" encoding="UTF-8"?>\n);
 
@@ -18,22 +21,30 @@ my $ADD_TT_EXT = sub {
     is_string($tmpl) && $tmpl !~ /\.\w{2,4}$/ ? "$tmpl.tt" : $tmpl;
 };
 
+my $OWN_OPTS = {map { ($_ => 1) } qw(
+    log_category
+    autocommit
+    count
+    file
+    fh
+    xml
+    template
+    template_before
+    template_after
+)};
+
 has xml             => (is => 'ro');
 has template_before => (is => 'ro', coerce => $ADD_TT_EXT);
 has template        => (is => 'ro', coerce => $ADD_TT_EXT, required => 1);
-has template_after => (is => 'ro', coerce => $ADD_TT_EXT);
-has start_tag      => (is => 'ro');
-has end_tag        => (is => 'ro');
-has tag_style      => (is => 'ro');
-has interpolate    => (is => 'ro');
-has eval_perl      => (is => 'ro');
-has _tt_opts       => (is => 'lazy');
+has template_after  => (is => 'ro', coerce => $ADD_TT_EXT);
+has _tt_opts        => (is => 'lazy', init_arg => undef);
+has _tt             => (is => 'lazy', init_arg => undef);
 
 sub BUILD {
     my ($self, $opts) = @_;
     my $tt_opts = $self->_tt_opts;
     for my $key (keys %$opts) {
-        $tt_opts->{uc $key} = $opts->{$key};
+        $tt_opts->{uc $key} = $opts->{$key} unless $OWN_OPTS->{$key};
     }
 }
 
@@ -47,14 +58,23 @@ sub _build__tt_opts {
     };
 }
 
-sub _tt {
+sub _build__tt {
     my ($self) = @_;
     my $opts = $self->_tt_opts;
+
+    my $instance_key = do {
+        local $Storable::canonical = 1;
+        freeze($opts);
+    };
+    if (my $instance = $TT_INSTANCES->{$instance_key}) {
+        return $instance;
+    }
+
     my $vars = $opts->{VARIABLES} ||= {};
     $vars->{_root}   = Catmandu->root;
     $vars->{_config} = Catmandu->config;
     local $Template::Stash::PRIVATE = 0;
-    state $tt = Template->new(%$opts);
+    $TT_INSTANCES->{$instance_key} = Template->new(%$opts);
 }
 
 sub _process {

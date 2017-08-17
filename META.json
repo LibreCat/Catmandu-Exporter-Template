@@ -39,6 +39,7 @@
          "requires" : {
             "Catmandu" : "0.9301",
             "Moo" : "> 1.004",
+            "Storable" : "0",
             "Template" : "2.22",
             "perl" : "v5.10.1"
          }
@@ -65,6 +66,7 @@
    "version" : "0.08",
    "x_contributors" : [
       "Jakob Voss <voss@gbv.de>",
+      "Nicolas Steenlant <nicolas.steenlant@ugent.be>",
       "Patrick Hochstenbach <patrick.hochstenbach@ugent.be>",
       "Vitali Peil <vitali.peil@uni-bielefeld.de>"
    ],
