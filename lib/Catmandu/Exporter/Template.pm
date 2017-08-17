@@ -21,24 +21,27 @@ my $ADD_TT_EXT = sub {
     is_string($tmpl) && $tmpl !~ /\.\w{2,4}$/ ? "$tmpl.tt" : $tmpl;
 };
 
-my $OWN_OPTS = {map { ($_ => 1) } qw(
-    log_category
-    autocommit
-    count
-    file
-    fh
-    xml
-    template
-    template_before
-    template_after
-)};
+my $OWN_OPTS = {
+    map {($_ => 1)}
+        qw(
+        log_category
+        autocommit
+        count
+        file
+        fh
+        xml
+        template
+        template_before
+        template_after
+        )
+};
 
 has xml             => (is => 'ro');
 has template_before => (is => 'ro', coerce => $ADD_TT_EXT);
 has template        => (is => 'ro', coerce => $ADD_TT_EXT, required => 1);
-has template_after  => (is => 'ro', coerce => $ADD_TT_EXT);
-has _tt_opts        => (is => 'lazy', init_arg => undef);
-has _tt             => (is => 'lazy', init_arg => undef);
+has template_after => (is => 'ro',   coerce   => $ADD_TT_EXT);
+has _tt_opts       => (is => 'lazy', init_arg => undef);
+has _tt            => (is => 'lazy', init_arg => undef);
 
 sub BUILD {
     my ($self, $opts) = @_;

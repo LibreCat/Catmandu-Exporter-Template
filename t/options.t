@@ -55,7 +55,8 @@ $exporter2 = Catmandu::Exporter::Template->new(
     end_tag   => "!>"
 );
 
-ok $exporter->_tt == $exporter2->_tt, 'tt engines wirth equal arguments get reused';
+ok $exporter->_tt == $exporter2->_tt,
+    'tt engines wirth equal arguments get reused';
 
 $exporter2 = Catmandu::Exporter::Template->new(
     template  => \$template,
@@ -63,6 +64,7 @@ $exporter2 = Catmandu::Exporter::Template->new(
     end_tag   => "%>"
 );
 
-ok $exporter->_tt != $exporter2->_tt, 'tt engines wirth equal arguments get reused';
+ok $exporter->_tt != $exporter2->_tt,
+    'tt engines wirth equal arguments get reused';
 
 done_testing;
