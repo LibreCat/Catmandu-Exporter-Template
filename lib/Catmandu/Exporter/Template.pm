@@ -148,66 +148,35 @@ This L<Catmandu::Exporter> can be used to export records using
 L<Template Toolkit|Template::Manual>. If you are new to Catmandu
 see L<Catmandu::Tutorial>.
 
-=head1 METHODS
-
-Catmandu::Exporter::Template derives from L<Catmandu::Exporter> with all of its
-methods (C<add>, C<add_many>, C<count>, and C<log>). The following methods are
-supported in addition:
-
-=head2 new(%opts)
-
-The only required argument is 'template' which points to a file to render for
-each exported object. Set the 'template_before' and 'template_before' to add
-output at the start and end of the export.  Optionally provide an 'xml'
-indicator to include a XML header.
+=head1 CONFIGURATION
 
 =over
 
-=item *
+=item template
 
-template: Required. Must contain path to the template.
+Required. Must contain path to the template.
 
-=item *
+=item xml
 
-xml: Optional. Value: 0 or 1. Prepends xml header to the template.
+Optional. Value: 0 or 1. Prepends xml header to the template.
 
-=item *
+=item template_before
 
-template_before: Optional. Prepend template.
+Optional. Prepend output to the export.
 
-=item *
+=item template_after
 
-template_after: Optional. Append template.
+Optional. Append output to the export.
 
-=item *
+=item fix
 
-fix: Optional. Apply Catmandu fixes while exporting.
+Optional. Apply Catmandu fixes while exporting.
 
-=item *
+=item [Template Toolkit configuration options]
 
-start_tag
-
-=item *
-
-end_tag
-
-=item *
-
-tag_style
-
-=item *
-
-interpolate
-
-=item *
-
-eval_perl
+You can also pass all Template Toolkit configuration options.
 
 =back
-
-=head2 commit
-
-Commit all changes and execute the template_after if given.
 
 =head1 SEE ALSO
 
