@@ -63,7 +63,7 @@
          "web" : "https://github.com/LibreCat/Catmandu-Template"
       }
    },
-   "version" : "0.10",
+   "version" : "0.11",
    "x_contributors" : [
       "Jakob Voss <voss@gbv.de>",
       "Nicolas Steenlant <nicolas.steenlant@ugent.be>",
