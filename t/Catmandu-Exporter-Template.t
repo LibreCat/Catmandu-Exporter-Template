@@ -42,4 +42,21 @@ is($file, $result, "Exported Format");
 
 is($exporter->count, 1, "Count");
 
-done_testing 9;
+my $template_before = <<EOF;
+Book
+
+EOF
+$file = "";
+$exporter = $pkg->new(file => \$file, template => \$template, template_before => \$template_before);
+$exporter->add($data);
+$exporter->commit;
+$result = <<EOF;
+Book
+
+Author: brian d foy
+Title: "Mastering Perl"
+EOF
+
+is($file, $result, "Preamble added once");
+
+done_testing;
