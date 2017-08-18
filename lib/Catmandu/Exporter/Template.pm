@@ -8,7 +8,7 @@ use Storable qw(freeze);
 use Moo;
 use namespace::clean;
 
-our $VERSION = '0.08';
+our $VERSION = '0.11';
 
 with 'Catmandu::Exporter';
 
@@ -42,6 +42,7 @@ has template        => (is => 'ro', coerce => $ADD_TT_EXT, required => 1);
 has template_after => (is => 'ro',   coerce   => $ADD_TT_EXT);
 has _tt_opts       => (is => 'lazy', init_arg => undef);
 has _tt            => (is => 'lazy', init_arg => undef);
+has _before_done   => (is => 'rw', init_arg => undef);
 
 sub BUILD {
     my ($self, $opts) = @_;
@@ -91,9 +92,10 @@ sub _process {
 
 sub add {
     my ($self, $data) = @_;
-    if ($self->count == 0) {
+    unless ($self->_before_done) {
         $self->fh->print($XML_DECLARATION) if $self->xml;
         $self->_process($self->template_before) if $self->template_before;
+        $self->_before_done(1);
     }
     $self->_process($self->template, $data);
 }
