@@ -78,7 +78,7 @@ sub _build__tt {
     $vars->{_root}   = Catmandu->root;
     $vars->{_config} = Catmandu->config;
     local $Template::Stash::PRIVATE = 0;
-    $TT_INSTANCES->{$instance_key} = Template->new(%$opts);
+    $TT_INSTANCES->{$instance_key} = Template->new({%$opts});
 }
 
 sub _process {
