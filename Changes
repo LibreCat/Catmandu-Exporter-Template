@@ -2,13 +2,15 @@ Revision history for Catmandu-Template
 
 {{$NEXT}}
 
+0.12  2017-08-18 12:25:22 CEST
+    - better pod formatting
+
 0.11  2017-08-18 08:26:09 CEST
     - don't call template_before if records are skipped
 
 0.10  2017-08-17 15:35:08 CEST
     - allow all TT options
     - TT engines get reused if possible
-    - better pod formatting
 
 0.08  2015-05-28 14:53:42 CEST
     - typo in documentation
