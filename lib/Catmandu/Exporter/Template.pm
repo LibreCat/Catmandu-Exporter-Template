@@ -102,6 +102,11 @@ sub add {
 
 sub commit {
     my ($self) = @_;
+    unless ($self->_before_done) {
+        $self->fh->print($XML_DECLARATION) if $self->xml;
+        $self->_process($self->template_before) if $self->template_before;
+        $self->_before_done(1);
+    }
     $self->_process($self->template_after) if $self->template_after;
 }
 
