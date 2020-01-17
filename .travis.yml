@@ -19,3 +19,6 @@ after_success:
   - cover -report coveralls
 env: RELEASE_TESTING=1 AUTOMATED_TESTING=1
 sudo: false
+
+#default is "xenial" which does not support perl versions older than 5.22
+dist: trusty
