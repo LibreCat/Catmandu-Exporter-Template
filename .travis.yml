@@ -1,10 +1,24 @@
 language: perl
-perl:
-  - "5.20"
-  - "5.18"
-  - "5.16"
-  - "5.14"
-  - "5.12"
+matrix:
+  include:
+    - perl: "5.28"
+      dist: xenial
+    - perl: "5.26"
+      dist: xenial
+    - perl: "5.24"
+      dist: xenial
+    - perl: "5.22"
+      dist: xenial
+    - perl: "5.20"
+      dist: trusty
+    - perl: "5.18"
+      dist: trusty
+    - perl: "5.16"
+      dist: trusty
+    - perl: "5.14"
+      dist: trusty
+    - perl: "5.12"
+      dist: trusty
 install:
   - cpanm --local-lib=~/perl5 local::lib
   - cpanm --local-lib=~/perl5 --quiet --notest --skip-satisfied Devel::Cover
@@ -21,4 +35,4 @@ env: RELEASE_TESTING=1 AUTOMATED_TESTING=1
 sudo: false
 
 #default is "xenial" which does not support perl versions older than 5.22
-dist: trusty
+dist: bionic
