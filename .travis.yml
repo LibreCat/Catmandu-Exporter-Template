@@ -6,11 +6,16 @@ perl:
   - "5.14"
   - "5.12"
 install:
-  - cpanm --quiet --notest --force --skip-satisfied .
-  - cpanm --quiet --notest --skip-satisfied Devel::Cover
+  - cpanm --local-lib=~/perl5 local::lib
+  - cpanm --local-lib=~/perl5 --quiet --notest --skip-satisfied Devel::Cover
+  - cpanm --local-lib=~/perl5 --quiet --notest --skip-satisfied Module::Build
+  - cpanm --local-lib=~/perl5 --quiet --installdeps --notest --force --skip-satisfied .
 script:
-  - perl Build.PL && cover -test
+  - export PERL5LIB=$HOME/perl5/lib/perl5
+  - export PATH=$HOME/perl5/bin:$PATH
+  - perl Build.PL && ./Build build && cover -test
 after_success:
   - cpanm --quiet --notest --skip-satisfied Devel::Cover::Report::Coveralls
   - cover -report coveralls
 env: RELEASE_TESTING=1 AUTOMATED_TESTING=1
+sudo: false
