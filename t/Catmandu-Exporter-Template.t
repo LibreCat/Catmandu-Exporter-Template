@@ -24,13 +24,14 @@ EOF
 EOF
 
     my $exporter = $pkg->new(
-        file => \$file,
-        template => \$template,
+        file            => \$file,
+        template        => \$template,
         template_before => \$template_before
     );
     $exporter->commit;
 
-    is( $file, $template_before , "no records added, only template_before rendered" );
+    is($file, $template_before,
+        "no records added, only template_before rendered");
 }
 
 #only template_before, one record added
@@ -44,11 +45,11 @@ EOF
 EOF
 
     my $exporter = $pkg->new(
-        file => \$file,
-        template => \$template,
+        file            => \$file,
+        template        => \$template,
         template_before => \$template_before
     );
-    $exporter->add({ author => "Nicolas Franck" });
+    $exporter->add({author => "Nicolas Franck"});
     $exporter->commit;
 
     my $expected_result = <<EOF;
@@ -56,7 +57,8 @@ EOF
 Author: "Nicolas Franck"
 EOF
 
-    is( $file, $expected_result , "one record added, template_before prepended" );
+    is($file, $expected_result,
+        "one record added, template_before prepended");
 }
 
 #only template_after, no records
@@ -70,13 +72,14 @@ EOF
 EOF
 
     my $exporter = $pkg->new(
-        file => \$file,
-        template => \$template,
+        file           => \$file,
+        template       => \$template,
         template_after => \$template_after
     );
     $exporter->commit;
 
-    is( $file, $template_after , "no records added, only template_after rendered" );
+    is($file, $template_after,
+        "no records added, only template_after rendered");
 }
 
 #only template_after, one record added
@@ -90,11 +93,11 @@ EOF
 EOF
 
     my $exporter = $pkg->new(
-        file => \$file,
-        template => \$template,
+        file           => \$file,
+        template       => \$template,
         template_after => \$template_after
     );
-    $exporter->add({ author => "Nicolas Franck" });
+    $exporter->add({author => "Nicolas Franck"});
     $exporter->commit;
 
     my $expected_result = <<EOF;
@@ -102,8 +105,9 @@ Author: "Nicolas Franck"
 ...
 EOF
 
-    is( $file, $expected_result , "one record added, template_after appended" );
+    is($file, $expected_result, "one record added, template_after appended");
 }
+
 #both template_before and template_after, one record added
 {
     my $file     = "";
@@ -120,12 +124,12 @@ EOF
 EOF
 
     my $exporter = $pkg->new(
-        file => \$file,
-        template => \$template,
+        file            => \$file,
+        template        => \$template,
         template_before => \$template_before,
-        template_after => \$template_after
+        template_after  => \$template_after
     );
-    $exporter->add({ author => "Nicolas Franck" });
+    $exporter->add({author => "Nicolas Franck"});
     $exporter->commit;
 
     my $expected_result = <<EOF;
@@ -134,7 +138,7 @@ Author: "Nicolas Franck"
 ...
 EOF
 
-    is( $file, $expected_result , "one record added, template_after appended" );
+    is($file, $expected_result, "one record added, template_after appended");
 }
 
 done_testing;

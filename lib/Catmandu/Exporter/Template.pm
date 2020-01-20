@@ -39,10 +39,10 @@ my $OWN_OPTS = {
 has xml             => (is => 'ro');
 has template_before => (is => 'ro', coerce => $ADD_TT_EXT);
 has template        => (is => 'ro', coerce => $ADD_TT_EXT, required => 1);
-has template_after => (is => 'ro',   coerce   => $ADD_TT_EXT);
-has _tt_opts       => (is => 'lazy', init_arg => undef);
-has _tt            => (is => 'lazy', init_arg => undef);
-has _before_done   => (is => 'rw', init_arg => undef);
+has template_after  => (is => 'ro', coerce => $ADD_TT_EXT);
+has _tt_opts        => (is => 'lazy', init_arg => undef);
+has _tt             => (is => 'lazy', init_arg => undef);
+has _before_done    => (is => 'rw', init_arg => undef);
 
 sub BUILD {
     my ($self, $opts) = @_;
