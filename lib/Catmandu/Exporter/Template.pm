@@ -14,8 +14,6 @@ with 'Catmandu::Exporter';
 
 my $TT_INSTANCES = {};
 
-my $XML_DECLARATION = qq(<?xml version="1.0" encoding="UTF-8"?>\n);
-
 my $ADD_TT_EXT = sub {
     my $tmpl = $_[0];
     is_string($tmpl) && $tmpl !~ /\.\w{2,4}$/ ? "$tmpl.tt" : $tmpl;
@@ -52,9 +50,14 @@ sub BUILD {
     }
 }
 
+sub _xml_declaration {
+
+    qq(<?xml version="1.0" encoding=").uc($_[0]->encoding).qq("?>\n);
+
+}
+
 sub _build__tt_opts {
     +{
-        ENCODING     => 'utf8',
         ABSOLUTE     => 1,
         RELATIVE     => 1,
         ANYCASE      => 0,
@@ -93,7 +96,7 @@ sub _process {
 sub add {
     my ($self, $data) = @_;
     unless ($self->_before_done) {
-        $self->fh->print($XML_DECLARATION) if $self->xml;
+        $self->fh->print($self->_xml_declaration) if $self->xml;
         $self->_process($self->template_before) if $self->template_before;
         $self->_before_done(1);
     }
@@ -103,7 +106,7 @@ sub add {
 sub commit {
     my ($self) = @_;
     unless ($self->_before_done) {
-        $self->fh->print($XML_DECLARATION) if $self->xml;
+        $self->fh->print($self->_xml_declaration) if $self->xml;
         $self->_process($self->template_before) if $self->template_before;
         $self->_before_done(1);
     }
