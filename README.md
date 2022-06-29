@@ -4,14 +4,14 @@ Catmandu::Template - Catmandu modules for working with templates
 
 # STATUS
 
-[![Build Status](https://travis-ci.org/LibreCat/Catmandu-Template.svg?branch=master)](https://travis-ci.org/LibreCat/Catmandu-Template)
+![Test status](https://github.com/LibreCat/Catmandu-RIS/actions/workflows/linux.yml/badge.svg)
 [![Coverage](https://coveralls.io/repos/LibreCat/Catmandu-Template/badge.png?branch=master)](https://coveralls.io/r/LibreCat/Catmandu-Template)
 [![CPANTS kwalitee](http://cpants.cpanauthors.org/dist/Catmandu-Template.png)](http://cpants.cpanauthors.org/dist/Catmandu-Template)
 
 # MODULES
 
-- [Catmandu::Exporter::Template](https://metacpan.org/pod/Catmandu::Exporter::Template)
-- [Catmandu::Fix::template](https://metacpan.org/pod/Catmandu::Fix::template)
+- [Catmandu::Exporter::Template](https://metacpan.org/pod/Catmandu%3A%3AExporter%3A%3ATemplate)
+- [Catmandu::Fix::template](https://metacpan.org/pod/Catmandu%3A%3AFix%3A%3Atemplate)
 
 # AUTHOR
 
@@ -24,6 +24,10 @@ Vitali Peil, `<vitali.peil at uni-bielefeld.de>`
 Jakob Voss, `<jakob.voss at gbv.de>`
 
 Patrick Hochstenbach, `<patrick.hochstenbach at ugent.be>`
+
+Nicolas Franck, `Nicolas.Franck at ugent.be`
+
+Debabrata Deka
 
 # LICENSE
 
