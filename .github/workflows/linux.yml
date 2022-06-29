@@ -21,10 +21,7 @@ jobs:
         - '5.32'
         include:
           - perl-version: '5.36'
-            os: ubuntu-latest
             coverage: true
-          - arch: ppc64le
-            distro: ubuntu-latest
     container:
       image: perl:${{ matrix.perl-version }}
     steps:
